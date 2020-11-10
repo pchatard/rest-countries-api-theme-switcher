@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+:root {
+	--text-dark-mode: hsl(0, 0%, 100%);
+	--background-dark-mode: hsl(207, 26%, 17%);
+	--elements-dark-mode: hsl(209, 23%, 22%);
+	--text-light-mode: hsl(200, 15%, 8%);
+	--background-light-mode: hsl(0, 0%, 98%);
+	--input-light-mode: hsl(0, 0%, 52%);
+	--elements-light-mode: hsl(0, 0%, 100%);
+}
+
+html {
+	font-size: 62.5%;
+}
+
+*,
+*:after,
+*:before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Set variable like --color-text, --color-background here based on dark mode */
+body {
+	--color-background: var(--background-light-mode);
+	--color-text: var(--text-light-mode);
+}
+
+.btn {
+	background-color: var(--elements-light-mode);
+	font-family: inherit;
+	font-size: 1.3rem;
+	border: none;
+	outline: none;
+	padding: 0.5rem 2rem;
+	border-radius: 2px;
+	box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+}
+
+.modal {
+	font-family: "Nunito Sans", sans-serif;
+	font-size: 1.6rem;
+	box-sizing: inherit;
+	color: var(--color-text);
+
+	/* Add a relative in the other document */
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 5rem 5rem;
+	background-color: var(--color-background);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.modal__btn {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal__btn ion-icon {
+	font-size: 1.6rem;
+	padding-right: 0.5rem;
+}
+
+.modal__details {
+	width: 100%;
+	padding-top: 5rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.modal__flag {
+	width: 40%;
+	height: auto;
+}
+
+.details__infos {
+	height: 100%;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.infos__name {
+	padding-bottom: 2rem;
+}
+
+.infos__content {
+	list-style-type: none;
+	padding-bottom: 4rem;
+	width: 100%;
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.infos__content li {
+	padding-bottom: 1rem;
+	/* width: 50%; */
+}
+
+.subtitle {
+	font-weight: 600;
+}
+
+.infos__border-countries .subtitle {
+	padding-right: 0.7rem;
+}
