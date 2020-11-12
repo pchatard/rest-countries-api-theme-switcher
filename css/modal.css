@@ -1,116 +1,88 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 
-:root {
-	--text-dark-mode: hsl(0, 0%, 100%);
-	--background-dark-mode: hsl(207, 26%, 17%);
-	--elements-dark-mode: hsl(209, 23%, 22%);
-	--text-light-mode: hsl(200, 15%, 8%);
-	--background-light-mode: hsl(0, 0%, 98%);
-	--input-light-mode: hsl(0, 0%, 52%);
-	--elements-light-mode: hsl(0, 0%, 100%);
-}
-
-html {
-	font-size: 62.5%;
-}
-
-*,
-*:after,
-*:before {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-/* Set variable like --color-text, --color-background here based on dark mode */
 body {
-	--color-background: var(--background-light-mode);
-	--color-text: var(--text-light-mode);
+	position: relative;
+	color: hsl(200, 15%, 8%);
+	background-color: hsl(0, 0%, 98%);
 }
 
 .btn {
-	background-color: var(--elements-light-mode);
+	background-color: hsl(0, 0%, 100%);
 	font-family: inherit;
-	font-size: 1.3rem;
 	border: none;
 	outline: none;
-	padding: 0.5rem 2rem;
-	border-radius: 2px;
-	box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.05);
+	font-size: 1rem;
+
+	border-radius: 5px;
+	box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
 	cursor: pointer;
 }
 
 .modal {
 	font-family: "Nunito Sans", sans-serif;
 	font-size: 1.6rem;
-	box-sizing: inherit;
-	color: var(--color-text);
+	max-width: 144rem;
+	margin: 0 auto;
 
-	/* Add a relative in the other document */
+	/* Positioned relatively to the main of homepage */
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	padding: 5rem 5rem;
-	background-color: var(--color-background);
+	padding: 4rem 2.8rem;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-start;
 }
 
 .modal__btn {
+	width: 10.4rem;
+	margin-bottom: 6.4rem;
+	padding: 1rem 2.5rem;
+
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 }
 
 .modal__btn ion-icon {
-	font-size: 1.6rem;
-	padding-right: 0.5rem;
+	margin-right: 1rem;
 }
 
 .modal__details {
-	width: 100%;
-	padding-top: 5rem;
 	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
+	flex-direction: column;
 }
 
 .modal__flag {
-	width: 40%;
-	height: auto;
+	height: 22.9rem;
 }
 
 .details__infos {
-	height: 100%;
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
+	margin-top: 5rem;
 }
 
 .infos__name {
-	padding-bottom: 2rem;
+	padding-bottom: 3.5rem;
 }
 
 .infos__content {
 	list-style-type: none;
-	padding-bottom: 4rem;
-	width: 100%;
-	height: 60%;
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
+}
+
+.infos__content div:first-child {
+	padding-bottom: 4.3rem;
+}
+
+.infos__content div:last-child {
+	padding-bottom: 3.9rem;
 }
 
 .infos__content li {
-	padding-bottom: 1rem;
-	/* width: 50%; */
+	padding-bottom: 2.2rem;
 }
 
 .subtitle {
@@ -118,5 +90,138 @@ body {
 }
 
 .infos__border-countries .subtitle {
-	padding-right: 0.7rem;
+	display: block;
+	padding-bottom: 2.4rem;
+}
+
+.border-countries__btn {
+	padding: 0.9rem 2rem;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+	.btn {
+		font-size: 1.3rem;
+	}
+
+	.modal {
+		padding: 8rem;
+	}
+
+	.modal__btn {
+		width: 12rem;
+		margin-bottom: 6.4rem;
+		padding: 1.2rem 2.8rem;
+	}
+
+	.modal__flag {
+		height: 40rem;
+	}
+
+	.infos__content {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.infos__content li {
+		padding-bottom: 2rem;
+	}
+
+	.infos__border-countries .subtitle {
+		display: inline;
+		padding-right: 1.6rem;
+	}
+
+	.border-countries__btn {
+		padding: 0.8rem 2rem;
+	}
+}
+
+@media screen and (min-width: 980px) {
+	.btn {
+		font-size: 1.6rem;
+	}
+
+	.modal__btn {
+		width: 13.6rem;
+		margin-bottom: 8rem;
+		padding: 1.4rem 3.2rem;
+	}
+
+	.modal__btn ion-icon {
+		margin-right: 1.3rem;
+	}
+
+	.modal__details {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.modal__flag {
+		width: 35%;
+		height: 28rem;
+	}
+
+	.details__infos {
+		width: 65%;
+		margin: auto;
+		margin-left: 6rem;
+	}
+
+	.infos__name {
+		padding-bottom: 3rem;
+	}
+
+	.infos__content {
+		padding-bottom: 2rem;
+	}
+
+	.infos__content div:first-child,
+	.infos__content div:last-child {
+		padding: 0;
+	}
+
+	.infos__content li {
+		padding-bottom: 1.8rem;
+	}
+
+	.infos__border-countries .subtitle {
+		padding-right: 1.4rem;
+	}
+
+	.border-countries__btn {
+		margin-right: 0.8rem;
+	}
+}
+@media screen and (min-width: 1260px) {
+	.modal__flag {
+		width: 43.75%;
+		height: 40rem;
+	}
+
+	.details__infos {
+		width: 56.25%;
+		margin-left: 13rem;
+	}
+
+	.infos__name {
+		padding-bottom: 4.5rem;
+	}
+
+	.infos__content {
+		padding-bottom: 5.8rem;
+	}
+
+	.infos__content li {
+		padding-bottom: 2rem;
+	}
+
+	.infos__border-countries .subtitle {
+		padding-right: 1.6rem;
+	}
+
+	.border-countries__btn {
+		margin-right: 1rem;
+	}
 }
