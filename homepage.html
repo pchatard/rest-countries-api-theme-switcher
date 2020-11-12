@@ -10,199 +10,200 @@
 			integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 			crossorigin="anonymous"
 		/>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/homepage.css" />
 	</head>
 	<body>
 		<input type="checkbox" name="theme" id="theme" />
-		<header>
-			<h1>Where in the world?</h1>
-			<span>
-				<label for="theme">
-					<i class="fas fa-moon"></i>
-					<i class="far fa-moon"></i>
-					Dark Mode
-				</label>
-			</span>
-		</header>
-
-		<main>
-			<form class="actions">
-				<fieldset class="actions__search">
-					<label for="search">
-						<i class="fas fa-search"></i>
+		<div class="theme-container">
+			<div class="header-container">
+				<header>
+					<h1>Where in the world?</h1>
+					<label for="theme">
+						<i class="fas fa-moon"></i>
+						<i class="far fa-moon"></i>
+						Dark Mode
 					</label>
-					<input
-						type="search"
-						placeholder="Search for a country..."
-					/>
-				</fieldset>
-				<fieldset class="actions__filter">
-					<select name="region">
-						<option value="" selected>Filter by Region</option>
-						<option value="africa">Africa</option>
-						<option value="america">America</option>
-						<option value="asia">Asia</option>
-						<option value="europe">Europe</option>
-						<option value="oceania">Oceania</option>
-					</select>
-				</fieldset>
-			</form>
+				</header>
+			</div>
 
-			<section class="countries">
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Germany</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								81,770,900
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Europe
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span> Berlin
-							</li>
-						</ul>
-					</div>
-				</div>
+			<main>
+				<form class="actions">
+					<fieldset class="actions__search">
+						<label for="search">
+							<i class="fas fa-search"></i>
+						</label>
+						<input type="search" placeholder="Search for a country..." />
+					</fieldset>
+					<fieldset class="actions__filter">
+						<select name="region">
+							<option value="" selected>Filter by Region</option>
+							<option value="africa">Africa</option>
+							<option value="america">America</option>
+							<option value="asia">Asia</option>
+							<option value="europe">Europe</option>
+							<option value="oceania">Oceania</option>
+						</select>
+					</fieldset>
+				</form>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">United States of America</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								323,947,000
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Americas
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span>
-								Washington D.C.
-							</li>
-						</ul>
+				<section class="countries">
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Germany</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									81,770,900
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Europe
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span> Berlin
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Brazil</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								206,135,893
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Americas
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span> Brasilia
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">United States of America</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									323,947,000
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Americas
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span>
+									Washington D.C.
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Iceland</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								334,300
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Europe
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span>
-								Reykjavik
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Brazil</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									206,135,893
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Americas
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span> Brasilia
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Afghanistan</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								27,657,145
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Asia
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span> Kabul
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Iceland</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									334,300
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Europe
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span>
+									Reykjavik
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Aland Island</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								28,875
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Europe
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span>
-								Mariehamn
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Afghanistan</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									27,657,145
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Asia
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span> Kabul
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Albania</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								2,886,026
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Europe
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span> Tirana
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Aland Island</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									28,875
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Europe
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span>
+									Mariehamn
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<div class="country__container">
-					<img src="" alt="country-name flag" class="country__flag" />
-					<div class="country__details">
-						<h2 class="country__name">Algeria</h2>
-						<ul class="country__info__list">
-							<li class="country__info population">
-								<span class="subtitle">Population: </span>
-								40,400,000
-							</li>
-							<li class="country__info region">
-								<span class="subtitle">Region: </span> Africa
-							</li>
-							<li class="country__info capital">
-								<span class="subtitle">Capital: </span> Algiers
-							</li>
-						</ul>
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Albania</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									2,886,026
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Europe
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span> Tirana
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
-			</section>
-		</main>
+
+					<div class="country__container">
+						<img src="" alt="country-name flag" class="country__flag" />
+						<div class="country__details">
+							<h2 class="country__name">Algeria</h2>
+							<ul class="country__info__list">
+								<li class="country__info population">
+									<span class="subtitle">Population: </span>
+									40,400,000
+								</li>
+								<li class="country__info region">
+									<span class="subtitle">Region: </span> Africa
+								</li>
+								<li class="country__info capital">
+									<span class="subtitle">Capital: </span> Algiers
+								</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</main>
+		</div>
 	</body>
 </html>

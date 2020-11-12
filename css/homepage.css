@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+/* ----- VARIABLES ----- */
+:root {
+	--light-mode-elements: hsl(0, 0%, 100%);
+	--light-mode-background: hsl(0, 0%, 98%);
+	--light-mode-text: hsl(200, 15%, 8%);
+	--light-mode-input: hsl(0, 0%, 52%);
+	--light-shadow: #e7e7e7;
+
+	--dark-mode-elements: hsl(209, 23%, 22%);
+	--dark-mode-background: hsl(207, 26%, 17%);
+	--dark-mode-text: hsl(0, 0%, 100%);
+	--dark-shadow: #17171745;
+}
+
+/* LIGHTMODE (default) */
+.theme-container {
+	--elements: var(--light-mode-elements);
+	--background: var(--light-mode-background);
+	--text: var(--light-mode-text);
+	--input: var(--light-mode-input);
+	--shadow: var(--light-shadow);
+}
+
+/* ----- GENERAL ----- */
+body {
+	font-family: "Nunito Sans", sans-serif;
+	background-color: var(--background);
+}
+#theme {
+	display: none;
+}
+.header-container,
+main {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+}
+
+/* ----- HEADER ----- */
+.header-container {
+	position: fixed;
+	z-index: 2;
+	background-color: var(--elements);
+	box-shadow: 0px 3px 4px var(--shadow);
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 8rem;
+	margin: auto;
+	padding: 0 1.6rem;
+	background-color: var(--elements);
+	color: var(--text);
+}
+header h1 {
+	align-self: center;
+	font-size: 1.6rem;
+	font-weight: 800;
+}
+header i {
+	margin-right: 0.5rem;
+	transform: rotate(-20deg);
+}
+header .fas {
+	display: none;
+}
+header label {
+	display: block;
+	cursor: pointer;
+	font-size: 1.3rem;
+	font-weight: normal;
+	align-self: center;
+}
+@media screen and (min-width: 768px) {
+	header {
+		max-width: 128rem;
+		padding: 0 8rem;
+	}
+	header h1 {
+		font-size: 2.2rem;
+	}
+	header label {
+		font-size: 1.5rem;
+		font-weight: 600;
+		align-self: center;
+	}
+}
+
+/* ----- MAIN ----- */
+main {
+	position: relative;
+	padding-top: 8rem;
+	padding-bottom: 3rem;
+	background: var(--background);
+	color: var(--text);
+}
+
+.actions {
+	position: fixed;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 15.2rem;
+	width: -webkit-fill-available;
+	background: var(--background);
+	color: var(--input);
+	padding: 0 1.6rem 3.2rem 1.6rem;
+}
+.actions__search {
+	position: relative;
+	padding: 2.4rem 0;
+}
+.actions__search label {
+	position: absolute;
+	top: 4rem;
+	left: 3.6rem;
+	font-size: 1.6rem;
+}
+.actions__search input,
+.actions__filter select {
+	border: none;
+	height: 4.8rem;
+	box-shadow: 2px 2px 11px var(--shadow);
+	border-radius: 5px;
+	font-family: "Nunito Sans", sans-serif;
+}
+.actions__search input {
+	width: 100%;
+	max-width: 48rem;
+	padding: 0 2rem 0 7.6rem;
+	background-color: var(--elements);
+	color: var(--input);
+}
+.actions__search input::placeholder {
+	color: var(--input);
+}
+.actions__filter select {
+	width: 20rem;
+	padding-left: 2.4rem;
+	padding-right: 2rem;
+	outline: none;
+	appearance: none; /* Remove default arrow */
+	background: url(../images/chevron-down-outline.svg) 88% / 7% no-repeat;
+	background-color: var(--elements);
+	color: var(--text);
+}
+
+.actions__filter select::-ms-expand {
+	display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+
+.countries {
+	z-index: 0;
+	margin: 18rem auto 3.2rem auto;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+	justify-items: center;
+	row-gap: 4rem;
+}
+.country__container {
+	height: 33.6rem;
+	width: 26.4rem;
+	border-radius: 6px;
+	background-color: var(--elements);
+	box-shadow: 2px 2px 9px var(--shadow);
+	display: flex;
+	flex-direction: column;
+}
+.country__flag {
+	background: linear-gradient(#561f40 0%, #9f193c 44%, #c66914 100%);
+	height: 16rem;
+	border-radius: 6px 6px 0 0;
+}
+.country__details {
+	height: 17.6rem;
+	padding: 0 2.4rem;
+}
+.country__name {
+	margin-top: 3rem;
+	font-size: 1.8rem;
+	font-weight: 800;
+}
+.country__info__list {
+	margin-top: 2rem;
+	line-height: 2.4rem;
+}
+.subtitle {
+	font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+	main {
+		min-height: 100vh;
+	}
+	.actions {
+		padding: 0 8rem;
+	}
+	.countries {
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 7.3rem;
+	}
+}
+@media screen and (min-width: 980px) {
+	.actions {
+		max-width: 144rem;
+		margin: auto;
+		flex-direction: row;
+		padding: 0;
+	}
+	.actions__search {
+		padding: 4.8rem 0 4.8rem 8rem;
+	}
+	.actions__search label {
+		top: 6.8rem;
+		left: 11.2rem;
+		font-size: 1.9rem;
+	}
+	.actions__search input,
+	.actions__filter select {
+		height: 6rem;
+	}
+	.actions__search input {
+		width: 48rem;
+	}
+	.actions__filter {
+		padding: 4.8rem 8rem 4.8rem 0;
+	}
+	.countries {
+		margin: 15.2rem 8rem 3.2rem 8rem;
+		grid-template-columns: repeat(3, 1fr);
+		row-gap: 7.3rem;
+	}
+}
+@media screen and (min-width: 1260px) {
+	.countries {
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: 5.6rem;
+	}
+}
+@media screen and (min-width: 1440px) {
+	.countries {
+		max-width: 144rem;
+		column-gap: 7.3rem;
+	}
+}
+
+/* -------------------- */
+/* ----- DARKMODE ----- */
+/* -------------------- */
+#theme:checked ~ .theme-container {
+	--elements: var(--dark-mode-elements);
+	--background: var(--dark-mode-background);
+	--text: var(--dark-mode-text);
+	--input: var(--dark-mode-input);
+	--shadow: var(--dark-shadow);
+}
+#theme:checked ~ .theme-container .fas {
+	display: inline-block;
+}
+#theme:checked ~ .theme-container .far {
+	display: none;
+}
+#theme:checked ~ .theme-container select {
+	/* change dropdown arrow color */
+	background: url(../images/chevron-down-outline-white.svg) 88% / 7% no-repeat;
+	background-color: var(--elements);
+}
