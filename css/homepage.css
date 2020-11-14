@@ -28,6 +28,9 @@ body {
 	font-family: "Nunito Sans", sans-serif;
 	background-color: var(--background);
 }
+.dark-background {
+	background-color: var(--dark-mode-background);
+}
 #theme {
 	display: none;
 }
