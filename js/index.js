@@ -9,22 +9,22 @@ darkModeSwitch.checked = JSON.parse(isDarkMode);
 darkModeSwitch.addEventListener("change", handleThemeSwitch);
 
 function handleThemeSwitch(event) {
-	const newValue = event.target.checked;
-	localStorage.setItem("darkMode", newValue);
-	handleBackgroundColor();
+	const newThemeValue = event.target.checked;
+	localStorage.setItem("darkMode", newThemeValue);
+	handleBackgroundColor(newThemeValue);
 }
 
 // ***************************************************************
 
 // Set the background color body on page load
-isDarkMode && handleBackgroundColor();
+handleBackgroundColor(JSON.parse(isDarkMode));
 
 // Set the background color body on theme switch
-function handleBackgroundColor() {
-	const backgroundgBody = document.body.classList;
-	darkModeSwitch.checked
-		? backgroundgBody.add("dark-background")
-		: backgroundgBody.remove("dark-background");
+function handleBackgroundColor(isDarkMode = true) {
+	const backgroundBody = document.body.classList;
+	isDarkMode
+		? backgroundBody.add("dark-background")
+		: backgroundBody.remove("dark-background");
 }
 
 // ***************************************************************
