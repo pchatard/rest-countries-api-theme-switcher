@@ -62,8 +62,5 @@ function closeModal() {
 
 // On click on "border-countries__btn", open the appropriate detail card
 borderCountries.forEach((borderCountry) => {
-	borderCountry.addEventListener("click", openCountryInfos);
+	borderCountry.addEventListener("click", getCountryInfos);
 });
-function openCountryInfos() {
-	console.log("open this country detail card");
-}
