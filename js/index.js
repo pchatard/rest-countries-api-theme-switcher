@@ -42,11 +42,16 @@ function filterCountriesByRegion(region) {
 
 // Retrieve data for one country
 async function getCountryDetails(countryCode) {
-	const rawData = await fetch(
+	const rawCountryData = await fetch(
 		`https://restcountries.eu/rest/v2/alpha/${countryCode}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders`
 	);
-	const jsonData = await rawData.json();
-	return jsonData;
+	const countryData = await rawCountryData.json();
+	return countryData;
+}
+
+// Retrieve a border country's data when clicked from a detail page
+async function getBorderCountryDetails(borderCountryCode) {
+	return await getCountryDetails(borderCountryCode);
 }
 
 // filterCountriesByRegion to be called on "change" events from the dropdown
