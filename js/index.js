@@ -1,8 +1,10 @@
+// ******************************* DARKMODE ******************************* //
+
 const darkModeSwitch = document.getElementById("theme");
 
 // Set the theme on page load from Local storage
 const isDarkMode = localStorage.getItem("darkMode");
-console.log(JSON.parse(isDarkMode));
+// console.log(JSON.parse(isDarkMode));
 darkModeSwitch.checked = JSON.parse(isDarkMode);
 
 // Keep track of every theme switch in the local storage
@@ -14,7 +16,7 @@ function handleThemeSwitch(event) {
 	handleBackgroundColor(newThemeValue);
 }
 
-// ***************************************************************
+// ******************************
 
 // Set the background color body on page load
 handleBackgroundColor(JSON.parse(isDarkMode));
@@ -27,4 +29,34 @@ function handleBackgroundColor(isDarkMode = true) {
 		: backgroundBody.remove("dark-background");
 }
 
-// ***************************************************************
+// ******************************* API ******************************* //
+// Api fetching here
+
+// ******************************* MODAL ******************************* //
+
+const modal = document.querySelector(".modal-container");
+const countries = document.querySelectorAll(".country__container");
+const main = document.querySelector("main");
+const buttonBack = document.querySelector(".modal__btn");
+
+// On click on country card, open modal
+countries.forEach((country) => {
+	country.addEventListener("click", getCountryInfos);
+});
+
+function getCountryInfos() {
+	// Add more logic here to transmit country info, then...
+	openModal();
+}
+
+function openModal() {
+	main.classList.add("disappear");
+	modal.classList.add("allScreen");
+}
+
+// On click on the back button, close modal
+buttonBack.addEventListener("click", closeModal);
+function closeModal() {
+	main.classList.remove("disappear");
+	modal.classList.remove("allScreen");
+}
