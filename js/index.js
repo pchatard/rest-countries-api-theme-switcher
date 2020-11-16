@@ -38,6 +38,7 @@ const modal = document.querySelector(".modal-container");
 const countries = document.querySelectorAll(".country__container");
 const main = document.querySelector("main");
 const buttonBack = document.querySelector(".modal__btn");
+const borderCountries = document.querySelectorAll(".border-countries__btn");
 
 // On click on country card, open modal
 countries.forEach((country) => {
@@ -51,12 +52,18 @@ function getCountryInfos() {
 
 function openModal() {
 	main.classList.add("disappear");
-	modal.classList.add("allScreen");
 }
 
 // On click on the back button, close modal
 buttonBack.addEventListener("click", closeModal);
 function closeModal() {
 	main.classList.remove("disappear");
-	modal.classList.remove("allScreen");
+}
+
+// On click on "border-countries__btn", open the appropriate detail card
+borderCountries.forEach((borderCountry) => {
+	borderCountry.addEventListener("click", openCountryInfos);
+});
+function openCountryInfos() {
+	console.log("open this country detail card");
 }

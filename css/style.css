@@ -29,7 +29,7 @@ body {
 	background-color: var(--background);
 }
 .dark-background {
-	background-color: var(--dark-mode-elements);
+	background-color: var(--dark-mode-background);
 }
 #theme {
 	display: none;
@@ -289,10 +289,6 @@ main {
 	color: var(--text);
 }
 
-.allScreen {
-	height: 100vh;
-}
-
 .btn {
 	background-color: var(--elements);
 	color: var(--text);
@@ -317,7 +313,7 @@ main {
 
 	/* Positioned relatively to the main of homepage */
 	position: absolute;
-	top: 7vh;
+	top: 10vh;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -412,6 +408,7 @@ main {
 
 	.modal {
 		padding: 8rem;
+		top: 7vh;
 	}
 
 	.modal__btn {
