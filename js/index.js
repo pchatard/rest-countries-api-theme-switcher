@@ -3,9 +3,8 @@
 const darkModeSwitch = document.getElementById("theme");
 
 // Set the theme on page load from Local storage
-const isDarkMode = localStorage.getItem("darkMode");
-// console.log(JSON.parse(isDarkMode));
-darkModeSwitch.checked = JSON.parse(isDarkMode);
+const isDarkMode = JSON.parse(localStorage.getItem("darkMode"));
+darkModeSwitch.checked = isDarkMode;
 
 // Keep track of every theme switch in the local storage
 darkModeSwitch.addEventListener("change", handleThemeSwitch);
@@ -19,7 +18,7 @@ function handleThemeSwitch(event) {
 // ******************************
 
 // Set the background color body on page load
-handleBackgroundColor(JSON.parse(isDarkMode));
+handleBackgroundColor(isDarkMode);
 
 // Set the background color body on theme switch
 function handleBackgroundColor(isDarkMode = true) {
@@ -29,30 +28,85 @@ function handleBackgroundColor(isDarkMode = true) {
 		: backgroundBody.remove("dark-background");
 }
 
-// ******************************* API ******************************* //
-// Api fetching here
+// ******************************* API and MODAL ******************************* //
 
-// ******************************* MODAL ******************************* //
-
-const modal = document.querySelector(".modal-container");
-const countries = document.querySelectorAll(".country__container");
 const main = document.querySelector("main");
+const countriesContainer = document.querySelector(".countries");
+const modal = document.querySelector(".modal-container");
 const buttonBack = document.querySelector(".modal__btn");
 const borderCountries = document.querySelectorAll(".border-countries__btn");
 
-// On click on country card, open modal
-countries.forEach((country) => {
-	country.addEventListener("click", getCountryInfos);
-});
+// Fetching homepage data
+const countriesData = fetch(
+	"https://restcountries.eu/rest/v2/all?fields=alpha3Code;flag;name;capital;region;population"
+)
+	.then((response) => response.json())
+	.then((data) => data);
 
-function getCountryInfos() {
-	// Add more logic here to transmit country info, then...
-	openModal();
+// Populating homepage + adding event listeners
+(async function () {
+	await populateHomepageData();
+	addEventListenersOnCountries();
+})();
+
+async function populateHomepageData() {
+	const htmlCountries = (await countriesData)
+		.map((country) => {
+			return `
+            <div class="country__container" data-code="${country.alpha3Code}">
+                <img src="${country.flag}" alt="country-name flag" class="country__flag" />
+                <div class="country__details">
+                    <h2 class="country__name">${country.name}</h2>
+                    <ul class="country__info__list">
+                        <li class="country__info population">
+                            <span class="subtitle">Population: </span>
+                            ${country.population}
+                        </li>
+                        <li class="country__info region">
+                            <span class="subtitle">Region: </span> ${country.region}
+                        </li>
+                        <li class="country__info capital">
+                            <span class="subtitle">Capital: </span> ${country.capital}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `;
+		})
+		.join("");
+	countriesContainer.innerHTML = htmlCountries;
 }
 
-function openModal() {
+function addEventListenersOnCountries() {
+	const countries = Array.from(
+		document.querySelectorAll(".country__container")
+	);
+	countries.forEach((country) => {
+		country.addEventListener("click", () =>
+			handleCountryClick(country.dataset.code)
+		);
+	});
+}
+
+function handleCountryClick(countryCode) {
+	const countryData = getCountryDetails(countryCode);
+	openModal(countryData);
+}
+
+async function getCountryDetails(countryCode) {
+	const rawCountryData = await fetch(
+		`https://restcountries.eu/rest/v2/alpha/${countryCode}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders`
+	);
+	const countryData = await rawCountryData.json();
+	return countryData;
+}
+
+function openModal(countryData) {
 	main.classList.add("disappear");
+	// Populate Modal with countryData here
 }
+
+// ******************************* TODO ******************************* //
 
 // On click on the back button, close modal
 buttonBack.addEventListener("click", closeModal);
@@ -62,5 +116,17 @@ function closeModal() {
 
 // On click on "border-countries__btn", open the appropriate detail card
 borderCountries.forEach((borderCountry) => {
-	borderCountry.addEventListener("click", getCountryInfos);
+	// Modify the next line and borderCountries buttons so that borderCountry can
+	// pass its code to the handleCountryClick method
+	borderCountry.addEventListener("click", handleCountryClick);
 });
+
+// Filter by region function
+function filterCountriesByRegion(region) {
+	return countriesData.filter((country) => country.region === region);
+}
+
+// Retrieve a border country's data when clicked from a detail page
+async function getBorderCountryDetails(borderCountryCode) {
+	return await getCountryDetails(borderCountryCode);
+}
