@@ -161,7 +161,7 @@ main {
 
 .countries {
 	z-index: 0;
-	margin: 18rem auto 3.2rem auto;
+	margin: 20rem auto 3.2rem auto;
 	height: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -183,7 +183,6 @@ main {
 	opacity: 0.85;
 }
 .country__flag {
-	background: linear-gradient(#561f40 0%, #9f193c 44%, #c66914 100%);
 	height: 16rem;
 	border-radius: 6px 6px 0 0;
 }
