@@ -11,7 +11,7 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="./css/reset.css" />
-		<link rel="stylesheet" href="./css/homepage.css" />
+		<link rel="stylesheet" href="./css/style.css" />
 	</head>
 	<body>
 		<input type="checkbox" name="theme" id="theme" />
@@ -25,6 +25,81 @@
 						Dark Mode
 					</label>
 				</header>
+			</div>
+
+			<div class="modal-container">
+				<div class="modal">
+					<button class="modal__btn btn">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+							fill="#000"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+						Back
+					</button>
+					<div class="modal__details">
+						<div class="container-image">
+							<img
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/500px-Flag_of_Belgium.svg.png"
+								class="modal__flag"
+							/>
+						</div>
+
+						<div class="details__infos">
+							<h2 class="infos__name">Belgium</h2>
+							<ul class="infos__content">
+								<div>
+									<li>
+										<span class="subtitle">Native Name: </span>
+										België
+									</li>
+									<li>
+										<span class="subtitle">Population: </span>
+										11,319,511
+									</li>
+									<li>
+										<span class="subtitle">Region: </span>
+										Europe
+									</li>
+									<li>
+										<span class="subtitle">Sub Region: </span>
+										Western Europe
+									</li>
+									<li>
+										<span class="subtitle">Capital: </span>
+										Brussels
+									</li>
+								</div>
+								<div>
+									<li>
+										<span class="subtitle">Top Level Domain:</span>
+										.be
+									</li>
+									<li>
+										<span class="subtitle">Currencies: </span>
+										Euro
+									</li>
+									<li>
+										<span class="subtitle">Languages: </span>
+										Dutch, French, German
+									</li>
+								</div>
+							</ul>
+							<div class="infos__border-countries">
+								<span class="subtitle">Border Countries:</span>
+								<button class="border-countries__btn btn">France</button>
+								<button class="border-countries__btn btn">Germany</button>
+								<button class="border-countries__btn btn">Netherlands</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<main>
@@ -205,6 +280,7 @@
 				</section>
 			</main>
 		</div>
+
 		<script src="js/index.js"></script>
 	</body>
 </html>
