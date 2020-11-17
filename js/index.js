@@ -1,3 +1,5 @@
+// ******************************* DARKMODE ******************************* //
+
 const darkModeSwitch = document.getElementById("theme");
 
 // Set the theme on page load from Local storage
@@ -13,7 +15,7 @@ function handleThemeSwitch(event) {
 	handleBackgroundColor(newThemeValue);
 }
 
-// ***************************************************************
+// ******************************
 
 // Set the background color body on page load
 handleBackgroundColor(isDarkMode);
@@ -100,3 +102,38 @@ async function getCountryDetails(countryCode) {
 async function getBorderCountryDetails(borderCountryCode) {
 	return await getCountryDetails(borderCountryCode);
 }
+// ******************************* API ******************************* //
+// Api fetching here
+
+// ******************************* MODAL ******************************* //
+
+const modal = document.querySelector(".modal-container");
+const countries = document.querySelectorAll(".country__container");
+const main = document.querySelector("main");
+const buttonBack = document.querySelector(".modal__btn");
+const borderCountries = document.querySelectorAll(".border-countries__btn");
+
+// On click on country card, open modal
+countries.forEach((country) => {
+	country.addEventListener("click", getCountryInfos);
+});
+
+function getCountryInfos() {
+	// Add more logic here to transmit country info, then...
+	openModal();
+}
+
+function openModal() {
+	main.classList.add("disappear");
+}
+
+// On click on the back button, close modal
+buttonBack.addEventListener("click", closeModal);
+function closeModal() {
+	main.classList.remove("disappear");
+}
+
+// On click on "border-countries__btn", open the appropriate detail card
+borderCountries.forEach((borderCountry) => {
+	borderCountry.addEventListener("click", getCountryInfos);
+});
