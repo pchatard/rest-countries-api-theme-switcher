@@ -28,17 +28,22 @@ function handleBackgroundColor(isDarkMode = true) {
 		: backgroundBody.remove("dark-background");
 }
 
-// ***************************************************************
+// ******************************* API and MODAL ******************************* //
 
-// filterCountriesByRegion to be called on "change" events from the dropdown
+const main = document.querySelector("main");
+const countriesContainer = document.querySelector(".countries");
+const modal = document.querySelector(".modal-container");
+const buttonBack = document.querySelector(".modal__btn");
+const borderCountries = document.querySelectorAll(".border-countries__btn");
 
+// Fetching homepage data
 const countriesData = fetch(
 	"https://restcountries.eu/rest/v2/all?fields=alpha3Code;flag;name;capital;region;population"
 )
 	.then((response) => response.json())
 	.then((data) => data);
-const countriesContainer = document.querySelector(".countries");
 
+// Populating homepage + adding event listeners
 (async function () {
 	await populateHomepageData();
 	addEventListenersOnCountries();
@@ -73,59 +78,35 @@ async function populateHomepageData() {
 }
 
 function addEventListenersOnCountries() {
-	const countryList = Array.from(
+	const countries = Array.from(
 		document.querySelectorAll(".country__container")
 	);
-	countryList.forEach((country) =>
+	countries.forEach((country) => {
 		country.addEventListener("click", () =>
-			getCountryDetails(country.dataset.code)
-		)
-	);
+			handleCountryClick(country.dataset.code)
+		);
+	});
 }
 
-// Filter by region function
-function filterCountriesByRegion(region) {
-	return countriesData.filter((country) => country.region === region);
+function handleCountryClick(countryCode) {
+	const countryData = getCountryDetails(countryCode);
+	openModal(countryData);
 }
 
-// Retrieve data for one country
 async function getCountryDetails(countryCode) {
 	const rawCountryData = await fetch(
 		`https://restcountries.eu/rest/v2/alpha/${countryCode}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders`
 	);
 	const countryData = await rawCountryData.json();
-	console.log(countryData);
 	return countryData;
 }
 
-// Retrieve a border country's data when clicked from a detail page
-async function getBorderCountryDetails(borderCountryCode) {
-	return await getCountryDetails(borderCountryCode);
-}
-// ******************************* API ******************************* //
-// Api fetching here
-
-// ******************************* MODAL ******************************* //
-
-const modal = document.querySelector(".modal-container");
-const countries = document.querySelectorAll(".country__container");
-const main = document.querySelector("main");
-const buttonBack = document.querySelector(".modal__btn");
-const borderCountries = document.querySelectorAll(".border-countries__btn");
-
-// On click on country card, open modal
-countries.forEach((country) => {
-	country.addEventListener("click", getCountryInfos);
-});
-
-function getCountryInfos() {
-	// Add more logic here to transmit country info, then...
-	openModal();
-}
-
-function openModal() {
+function openModal(countryData) {
 	main.classList.add("disappear");
+	// Populate Modal with countryData here
 }
+
+// ******************************* TODO ******************************* //
 
 // On click on the back button, close modal
 buttonBack.addEventListener("click", closeModal);
@@ -135,5 +116,17 @@ function closeModal() {
 
 // On click on "border-countries__btn", open the appropriate detail card
 borderCountries.forEach((borderCountry) => {
-	borderCountry.addEventListener("click", getCountryInfos);
+	// Modify the next line and borderCountries buttons so that borderCountry can
+	// pass its code to the handleCountryClick method
+	borderCountry.addEventListener("click", handleCountryClick);
 });
+
+// Filter by region function
+function filterCountriesByRegion(region) {
+	return countriesData.filter((country) => country.region === region);
+}
+
+// Retrieve a border country's data when clicked from a detail page
+async function getBorderCountryDetails(borderCountryCode) {
+	return await getCountryDetails(borderCountryCode);
+}
