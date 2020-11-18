@@ -86,9 +86,10 @@ function addEventListenersOnCountries() {
 	});
 }
 
-function handleCountryClick(countryCode) {
-	const countryData = getCountryDetails(countryCode);
-	openModal(countryData);
+async function handleCountryClick(countryCode) {
+	const countryData = await getCountryDetails(countryCode);
+	const allCountriesData = await countriesData;
+	openModal(countryData, allCountriesData);
 }
 
 async function getCountryDetails(countryCode) {
@@ -101,12 +102,22 @@ async function getCountryDetails(countryCode) {
 
 // ******************************
 
-function openModal(countryData) {
+function openModal(countryData, allCountriesData) {
 	main.classList.add("disappear");
-	displayDataInModal(countryData);
+	displayDataInModal(countryData, allCountriesData);
+	handleBorderCountries();
+	closeModal();
 }
 
-async function displayDataInModal(countryData) {
+function closeModal() {
+	const buttonBack = document.querySelector(".modal__btn");
+	buttonBack.addEventListener("click", closeModal);
+	function closeModal() {
+		main.classList.remove("disappear");
+	}
+}
+
+function displayDataInModal(countryData, allCountriesData) {
 	const {
 		name,
 		nativeName,
@@ -119,17 +130,22 @@ async function displayDataInModal(countryData) {
 		languages,
 		borders,
 		flag,
-	} = await countryData;
+	} = countryData;
+
+	// Get border countries with data-code
+	const bordersWithName = borders.map((border) => {
+		return { name: "Country Name", code: border };
+	});
 
 	// Display border countries if exist
 	const borderCountries =
-		borders.length > 0
-			? borders
+		bordersWithName.length > 0
+			? bordersWithName
 					.map((border) => {
-						return `<button class="border-countries__btn btn">${border}</button>`;
+						return `<button class="border-countries__btn btn" data-code=${border.code}> ${border.name}</button>`;
 					})
 					.join("")
-			: `<button class="border-countries__btn btn" style="color: #bababa;">None</button>`;
+			: `<em>None</em>`;
 
 	// Display all elements in the array languages
 	const allLanguages = languages.map((language) => {
@@ -160,6 +176,7 @@ async function displayDataInModal(countryData) {
 						<div class="container-image">
 							<img
 								src=${flag}
+								alt="country flag"
 								class="modal__flag"
 							/>
 						</div>
@@ -212,17 +229,6 @@ async function displayDataInModal(countryData) {
 					</div>
 				</div>`;
 	modalContainer.innerHTML = htmlModal;
-	handleCloseModal();
-}
-
-function handleCloseModal() {
-	const buttonBack = document.querySelector(".modal__btn");
-	buttonBack.addEventListener("click", closeModal);
-	function closeModal() {
-		main.classList.remove("disappear");
-	}
-
-	handleBorderCountries();
 }
 
 // On click on "border-countries__btn", open the appropriate detail card
@@ -233,7 +239,7 @@ function handleBorderCountries() {
 
 	borderCountries.forEach((borderCountry) => {
 		borderCountry.addEventListener("click", () =>
-			handleCountryClick(borderCountry.textContent)
+			handleCountryClick(borderCountry.dataset.code)
 		);
 	});
 }
