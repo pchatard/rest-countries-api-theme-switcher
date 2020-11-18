@@ -28,10 +28,11 @@ function handleBackgroundColor(isDarkMode = true) {
 		: backgroundBody.remove("dark-background");
 }
 
-// ******************************* API and MODAL ******************************* //
+// ******************************* HOMEPAGE ******************************* //
 
 const main = document.querySelector("main");
 const countriesContainer = document.querySelector(".countries");
+const filterSelect = document.querySelector('select[name="region"');
 const modalContainer = document.querySelector(".modal-container");
 
 // Fetching homepage data
@@ -41,14 +42,13 @@ const countriesData = fetch(
 	.then((response) => response.json())
 	.then((data) => data);
 
-// Populating homepage + adding event listeners
 (async function () {
-	await populateHomepageData();
+	populateHomepageData(await countriesData);
 	addEventListenersOnCountries();
 })();
 
-async function populateHomepageData() {
-	const htmlCountries = (await countriesData)
+function populateHomepageData(data) {
+	const htmlCountries = data
 		.map((country) => {
 			return `
             <div class="country__container" data-code="${country.alpha3Code}">
@@ -73,6 +73,7 @@ async function populateHomepageData() {
 		})
 		.join("");
 	countriesContainer.innerHTML = htmlCountries;
+	window.scrollTo({ top: 0 });
 }
 
 function addEventListenersOnCountries() {
@@ -99,6 +100,8 @@ async function getCountryDetails(countryCode) {
 	const countryData = await rawCountryData.json();
 	return countryData;
 }
+
+// ****************************** MODAL ******************************* //
 
 function openModal(countryData, allCountriesData) {
 	main.classList.add("disappear");
@@ -249,12 +252,23 @@ function addEventListenerOnModal() {
 	);
 }
 
-// ******************************* TODO ******************************* //
+// ****************************** FILTER ******************************* //
 
-// Filter by region function
-function filterCountriesByRegion(region) {
-	return countriesData.filter((country) => country.region === region);
+filterSelect.addEventListener("change", filterCountriesByRegion);
+
+async function filterCountriesByRegion(event) {
+	const selectedRegion = event.target.value;
+	if (selectedRegion === "all") {
+		populateHomepageData(await countriesData);
+		return;
+	}
+	const filteredCountries = (await countriesData).filter(
+		(country) => country.region.toLowerCase() === selectedRegion
+	);
+	populateHomepageData(filteredCountries);
 }
+
+// ******************************* TODO ******************************* //
 
 // OTHERS TODOs :
 // Search filter function
