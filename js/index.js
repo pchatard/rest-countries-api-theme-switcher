@@ -32,9 +32,7 @@ function handleBackgroundColor(isDarkMode = true) {
 
 const main = document.querySelector("main");
 const countriesContainer = document.querySelector(".countries");
-const modal = document.querySelector(".modal-container");
-const buttonBack = document.querySelector(".modal__btn");
-const borderCountries = document.querySelectorAll(".border-countries__btn");
+const modalContainer = document.querySelector(".modal-container");
 
 // Fetching homepage data
 const countriesData = fetch(
@@ -88,45 +86,177 @@ function addEventListenersOnCountries() {
 	});
 }
 
-function handleCountryClick(countryCode) {
-	const countryData = getCountryDetails(countryCode);
-	openModal(countryData);
+async function handleCountryClick(countryCode) {
+	const countryData = await getCountryDetails(countryCode);
+	const allCountriesData = await countriesData;
+	openModal(countryData, allCountriesData);
 }
 
 async function getCountryDetails(countryCode) {
 	const rawCountryData = await fetch(
-		`https://restcountries.eu/rest/v2/alpha/${countryCode}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders`
+		`https://restcountries.eu/rest/v2/alpha/${countryCode}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag`
 	);
 	const countryData = await rawCountryData.json();
 	return countryData;
 }
 
-function openModal(countryData) {
+function openModal(countryData, allCountriesData) {
 	main.classList.add("disappear");
-	// Populate Modal with countryData here
+	displayDataInModal(countryData, allCountriesData);
+	handleBorderCountries();
+	addEventListenerOnModal();
+}
+
+function displayDataInModal(countryData, allCountriesData) {
+	const {
+		name,
+		nativeName,
+		population,
+		region,
+		subregion,
+		capital,
+		topLevelDomain,
+		currencies,
+		languages,
+		borders,
+		flag,
+	} = countryData;
+
+	const borderCountries = generateBorderCountriesHTML(
+		borders,
+		allCountriesData
+	);
+
+	// Display all elements in the array languages
+	const allLanguages = languages.map((language) => {
+		return " " + language.name;
+	});
+
+	// Display all elements in the array currencies
+	const allCurrencies = currencies.map((currency) => {
+		return " " + currency.name;
+	});
+
+	const htmlModal = `<div class="modal">
+                    <button class="modal__btn btn">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="#000"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                        Back
+                    </button>
+                    <div class="modal__details">
+                        <div class="container-image">
+                            <img
+                                src=${flag}
+                                alt="country flag"
+                                class="modal__flag"
+                            />
+                        </div>
+
+                        <div class="details__infos">
+                            <h2 class="infos__name">${name}</h2>
+                            <ul class="infos__content">
+                                <div>
+                                    <li>
+                                        <span class="subtitle">Native Name: </span>
+                                        ${nativeName}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Population: </span>
+                                        ${population}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Region: </span>
+                                        ${region}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Sub Region: </span>
+                                        ${subregion}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Capital: </span>
+                                        ${capital}
+                                    </li>
+                                </div>
+                                <div>
+                                    <li>
+                                        <span class="subtitle">Top Level Domain:</span>
+                                        ${topLevelDomain}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Currencies: </span>
+                                        ${allCurrencies}
+                                    </li>
+                                    <li>
+                                        <span class="subtitle">Languages: </span>
+                                        ${allLanguages}
+                                    </li>
+                                </div>
+                            </ul>
+                            <div class="infos__border-countries">
+                                <span class="subtitle">Border Countries:</span>
+                                ${borderCountries}
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+	modalContainer.innerHTML = htmlModal;
+}
+
+function generateBorderCountriesHTML(borders, allCountriesData) {
+	// Get border countries with data-code
+	const bordersWithName = borders.map((border) => {
+		const matchingCountry = allCountriesData.find(
+			(country) => country.alpha3Code === border
+		);
+		return { name: matchingCountry.name, code: matchingCountry.alpha3Code };
+	});
+
+	// Display border countries if exist
+	return bordersWithName.length > 0
+		? bordersWithName
+				.map((border) => {
+					return `<button class="border-countries__btn btn" data-code=${border.code}> ${border.name}</button>`;
+				})
+				.join("")
+		: `<em>None</em>`;
+}
+
+function handleBorderCountries() {
+	const borderCountries = Array.from(
+		document.querySelectorAll(".border-countries__btn")
+	);
+
+	borderCountries.forEach((borderCountry) => {
+		borderCountry.addEventListener("click", () =>
+			handleCountryClick(borderCountry.dataset.code)
+		);
+	});
+}
+
+function addEventListenerOnModal() {
+	const buttonBack = document.querySelector(".modal__btn");
+	buttonBack.addEventListener("click", () =>
+		main.classList.remove("disappear")
+	);
 }
 
 // ******************************* TODO ******************************* //
-
-// On click on the back button, close modal
-buttonBack.addEventListener("click", closeModal);
-function closeModal() {
-	main.classList.remove("disappear");
-}
-
-// On click on "border-countries__btn", open the appropriate detail card
-borderCountries.forEach((borderCountry) => {
-	// Modify the next line and borderCountries buttons so that borderCountry can
-	// pass its code to the handleCountryClick method
-	borderCountry.addEventListener("click", handleCountryClick);
-});
 
 // Filter by region function
 function filterCountriesByRegion(region) {
 	return countriesData.filter((country) => country.region === region);
 }
 
-// Retrieve a border country's data when clicked from a detail page
-async function getBorderCountryDetails(borderCountryCode) {
-	return await getCountryDetails(borderCountryCode);
-}
+// OTHERS TODOs :
+// Search filter function
+// Population -> Thousand comma separator ? (regex ?)
+// Make all flags fills its card (in homepage)
