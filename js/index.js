@@ -47,24 +47,35 @@ const countriesData = fetch(
 	addEventListenersOnCountries();
 })();
 
+// Add commas to numbers to separate thousands
+function formatNumber(num) {
+	return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
 function populateHomepageData(data) {
 	const htmlCountries = data
 		.map((country) => {
 			return `
             <div class="country__container" data-code="${country.alpha3Code}">
-                <img src="${country.flag}" alt="country-name flag" class="country__flag" />
+                <img src="${
+									country.flag
+								}" alt="country-name flag" class="country__flag" />
                 <div class="country__details">
                     <h2 class="country__name">${country.name}</h2>
                     <ul class="country__info__list">
                         <li class="country__info population">
                             <span class="subtitle">Population: </span>
-                            ${country.population}
+                            ${formatNumber(country.population)}
                         </li>
                         <li class="country__info region">
-                            <span class="subtitle">Region: </span> ${country.region}
+                            <span class="subtitle">Region: </span> ${
+															country.region
+														}
                         </li>
                         <li class="country__info capital">
-                            <span class="subtitle">Capital: </span> ${country.capital}
+                            <span class="subtitle">Capital: </span> ${
+															country.capital
+														}
                         </li>
                     </ul>
                 </div>
@@ -174,7 +185,7 @@ function displayDataInModal(countryData, allCountriesData) {
                                     </li>
                                     <li>
                                         <span class="subtitle">Population: </span>
-                                        ${population}
+                                       ${formatNumber(population)}
                                     </li>
                                     <li>
                                         <span class="subtitle">Region: </span>
@@ -285,8 +296,24 @@ async function filterSearchInput(event) {
 	addEventListenersOnCountries();
 }
 
+// ******************************* SCROLL EFFECT ******************************* //
+
+let prevScrollPosition = window.pageYOffset;
+const formActions = document.querySelector(".actions");
+
+// On scrolls down, hide the search bar. On scrolls up, show the search bar
+window.onscroll = function () {
+	const currentScrollPosition = window.pageYOffset;
+
+	if (prevScrollPosition > currentScrollPosition) {
+		formActions.classList.remove("hide-actions");
+	} else {
+		formActions.classList.add("hide-actions");
+	}
+	prevScrollPosition = currentScrollPosition;
+};
+
 // ******************************* TODO ******************************* //
 
 // OTHERS TODOs :
-// Population -> Thousand comma separator ? (regex ?)
 // Make all flags fills its card (in homepage)
