@@ -266,6 +266,7 @@ async function filterCountriesByRegion(event) {
 		(country) => country.region.toLowerCase() === selectedRegion
 	);
 	populateHomepageData(filteredCountries);
+	addEventListenersOnCountries();
 }
 
 // ****************************** SEARCH ******************************* //
@@ -281,6 +282,7 @@ async function filterSearchInput(event) {
 			country.capital.toLowerCase().includes(enterValue)
 	);
 	populateHomepageData(filteredCountries);
+	addEventListenersOnCountries();
 }
 
 // ******************************* TODO ******************************* //
