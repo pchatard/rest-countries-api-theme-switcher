@@ -268,9 +268,29 @@ async function filterCountriesByRegion(event) {
 	populateHomepageData(filteredCountries);
 }
 
+// ****************************** SEARCH ******************************* //
+
+const searchInput = document.forms[0].querySelector("input");
+searchInput.addEventListener("keyup", filterSearchInput);
+
+function filterSearchInput(event) {
+	const enterValue = event.target.value.toLowerCase();
+	const countryCards = document.querySelectorAll(".country__container");
+
+	Array.from(countryCards).forEach(function (countryCard) {
+		const countryDetails = countryCard.querySelector(".country__details")
+			.innerText;
+
+		if (countryDetails.toLowerCase().indexOf(enterValue) != -1) {
+			countryCard.style.display = "";
+		} else {
+			countryCard.style.display = "none";
+		}
+	});
+}
+
 // ******************************* TODO ******************************* //
 
 // OTHERS TODOs :
-// Search filter function
 // Population -> Thousand comma separator ? (regex ?)
 // Make all flags fills its card (in homepage)
