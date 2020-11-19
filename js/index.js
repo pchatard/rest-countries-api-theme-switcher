@@ -268,9 +268,23 @@ async function filterCountriesByRegion(event) {
 	populateHomepageData(filteredCountries);
 }
 
+// ****************************** SEARCH ******************************* //
+
+const searchInput = document.querySelector("input[type='search']");
+searchInput.addEventListener("keyup", filterSearchInput);
+
+async function filterSearchInput(event) {
+	const enterValue = event.target.value.toLowerCase();
+	const filteredCountries = (await countriesData).filter(
+		(country) =>
+			country.name.toLowerCase().includes(enterValue) ||
+			country.capital.toLowerCase().includes(enterValue)
+	);
+	populateHomepageData(filteredCountries);
+}
+
 // ******************************* TODO ******************************* //
 
 // OTHERS TODOs :
-// Search filter function
 // Population -> Thousand comma separator ? (regex ?)
 // Make all flags fills its card (in homepage)
