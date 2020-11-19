@@ -270,23 +270,17 @@ async function filterCountriesByRegion(event) {
 
 // ****************************** SEARCH ******************************* //
 
-const searchInput = document.forms[0].querySelector("input");
+const searchInput = document.querySelector("input[type='search']");
 searchInput.addEventListener("keyup", filterSearchInput);
 
-function filterSearchInput(event) {
+async function filterSearchInput(event) {
 	const enterValue = event.target.value.toLowerCase();
-	const countryCards = document.querySelectorAll(".country__container");
-
-	Array.from(countryCards).forEach(function (countryCard) {
-		const countryDetails = countryCard.querySelector(".country__details")
-			.innerText;
-
-		if (countryDetails.toLowerCase().indexOf(enterValue) != -1) {
-			countryCard.style.display = "";
-		} else {
-			countryCard.style.display = "none";
-		}
-	});
+	const filteredCountries = (await countriesData).filter(
+		(country) =>
+			country.name.toLowerCase().includes(enterValue) ||
+			country.capital.toLowerCase().includes(enterValue)
+	);
+	populateHomepageData(filteredCountries);
 }
 
 // ******************************* TODO ******************************* //
