@@ -118,7 +118,7 @@ main {
 	transition: 400ms transform;
 }
 .hide-actions {
-	transform: translateY(-200px);
+	transform: translateY(-20rem);
 	transition: 600ms transform;
 }
 .actions__search {
