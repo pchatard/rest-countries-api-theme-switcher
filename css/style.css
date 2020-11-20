@@ -115,6 +115,11 @@ main {
 	background: var(--background);
 	color: var(--input);
 	padding: 0 1.6rem 3.2rem 1.6rem;
+	transition: 400ms transform;
+}
+.hide-actions {
+	transform: translateY(-20rem);
+	transition: 600ms transform;
 }
 .actions__search {
 	position: relative;
