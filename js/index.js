@@ -264,36 +264,73 @@ function addEventListenerOnModal() {
 }
 
 // ****************************** FILTER ******************************* //
+const filters = {
+	search: "",
+	region: "all",
+};
 
-filterSelect.addEventListener("change", filterCountriesByRegion);
+filterSelect.addEventListener("change", (e) => filterCountries(e, "region"));
 
-async function filterCountriesByRegion(event) {
-	const selectedRegion = event.target.value;
-	if (selectedRegion === "all") {
-		populateHomepageData(await countriesData);
-		return;
+async function filterCountries(event, type) {
+	let result;
+	if (type === "search") {
+		const regionCountries = await filterCountriesByRegion();
+		result = await filterSearchInput(event, regionCountries);
+	} else {
+		const searchCountries = await filterSearchInput();
+		result = await filterCountriesByRegion(event, searchCountries);
 	}
-	const filteredCountries = (await countriesData).filter(
-		(country) => country.region.toLowerCase() === selectedRegion
-	);
-	populateHomepageData(filteredCountries);
+	populateHomepageData(result);
 	addEventListenersOnCountries();
+}
+
+async function filterCountriesByRegion(event = {}, inputCountries = []) {
+	let results = [],
+		filter,
+		arrayToFilter;
+	if (Object.keys(event).length) {
+		filter = event.target.value;
+		arrayToFilter = inputCountries;
+		filters.region = filter;
+	} else {
+		filter = filters.region;
+		arrayToFilter = await countriesData;
+	}
+
+	if (filter === "all") {
+		results = arrayToFilter;
+	} else {
+		results = arrayToFilter.filter(
+			(country) => country.region.toLowerCase() === filter
+		);
+	}
+	return results;
 }
 
 // ****************************** SEARCH ******************************* //
 
 const searchInput = document.querySelector("input[type='search']");
-searchInput.addEventListener("keyup", filterSearchInput);
+searchInput.addEventListener("keyup", (e) => filterCountries(e, "search"));
 
-async function filterSearchInput(event) {
-	const enterValue = event.target.value.toLowerCase();
-	const filteredCountries = (await countriesData).filter(
+async function filterSearchInput(event = {}, inputCountries = []) {
+	let results = [],
+		filter,
+		arrayToFilter;
+	if (Object.keys(event).length) {
+		filter = event.target.value.toLowerCase();
+		arrayToFilter = inputCountries;
+		filters.search = filter;
+	} else {
+		filter = filters.search;
+		arrayToFilter = await countriesData;
+	}
+
+	results = arrayToFilter.filter(
 		(country) =>
-			country.name.toLowerCase().includes(enterValue) ||
-			country.capital.toLowerCase().includes(enterValue)
+			country.name.toLowerCase().includes(filter) ||
+			country.capital.toLowerCase().includes(filter)
 	);
-	populateHomepageData(filteredCountries);
-	addEventListenersOnCountries();
+	return results;
 }
 
 // ******************************* SCROLL EFFECT ******************************* //
@@ -312,8 +349,3 @@ window.onscroll = function () {
 	}
 	prevScrollPosition = currentScrollPosition;
 };
-
-// ******************************* TODO ******************************* //
-
-// OTHERS TODOs :
-// Make all flags fills its card (in homepage)
