@@ -190,6 +190,7 @@ main {
 .country__flag {
 	height: 16rem;
 	border-radius: 6px 6px 0 0;
+	object-fit: cover;
 }
 .country__details {
 	height: 17.6rem;
@@ -351,7 +352,6 @@ main {
 .container-image {
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
 }
 
 .modal__flag {
