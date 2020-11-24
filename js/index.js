@@ -288,10 +288,11 @@ async function filterCountries(event, type) {
 
 async function filterCountriesByRegion(event = {}, inputCountries = []) {
 	let results = [];
-
-	const [filter, arrayToFilter] = [
-		...(await initializeFiltering(event, inputCountries, "region")),
-	];
+	const [filter, arrayToFilter] = await initializeFiltering(
+		event,
+		inputCountries,
+		"region"
+	);
 
 	if (filter === "all") {
 		results = arrayToFilter;
@@ -305,9 +306,11 @@ async function filterCountriesByRegion(event = {}, inputCountries = []) {
 
 async function filterSearchInput(event = {}, inputCountries = []) {
 	let results = [];
-	const [filter, arrayToFilter] = [
-		...(await initializeFiltering(event, inputCountries, "search")),
-	];
+	const [filter, arrayToFilter] = await initializeFiltering(
+		event,
+		inputCountries,
+		"search"
+	);
 
 	results = arrayToFilter.filter(
 		(country) =>
