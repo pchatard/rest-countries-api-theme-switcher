@@ -263,13 +263,15 @@ function addEventListenerOnModal() {
 	);
 }
 
-// ****************************** FILTER ******************************* //
+// ****************************** FILTER (REGION AND SEARCH) ******************************* //
 const filters = {
 	search: "",
 	region: "all",
 };
 
+const searchInput = document.querySelector("input[type='search']");
 filterSelect.addEventListener("change", (e) => filterCountries(e, "region"));
+searchInput.addEventListener("keyup", (e) => filterCountries(e, "search"));
 
 async function filterCountries(event, type) {
 	let result;
@@ -285,17 +287,11 @@ async function filterCountries(event, type) {
 }
 
 async function filterCountriesByRegion(event = {}, inputCountries = []) {
-	let results = [],
-		filter,
-		arrayToFilter;
-	if (Object.keys(event).length) {
-		filter = event.target.value;
-		arrayToFilter = inputCountries;
-		filters.region = filter;
-	} else {
-		filter = filters.region;
-		arrayToFilter = await countriesData;
-	}
+	let results = [];
+
+	const [filter, arrayToFilter] = [
+		...(await initializeFiltering(event, inputCountries, "region")),
+	];
 
 	if (filter === "all") {
 		results = arrayToFilter;
@@ -307,23 +303,11 @@ async function filterCountriesByRegion(event = {}, inputCountries = []) {
 	return results;
 }
 
-// ****************************** SEARCH ******************************* //
-
-const searchInput = document.querySelector("input[type='search']");
-searchInput.addEventListener("keyup", (e) => filterCountries(e, "search"));
-
 async function filterSearchInput(event = {}, inputCountries = []) {
-	let results = [],
-		filter,
-		arrayToFilter;
-	if (Object.keys(event).length) {
-		filter = event.target.value.toLowerCase();
-		arrayToFilter = inputCountries;
-		filters.search = filter;
-	} else {
-		filter = filters.search;
-		arrayToFilter = await countriesData;
-	}
+	let results = [];
+	const [filter, arrayToFilter] = [
+		...(await initializeFiltering(event, inputCountries, "search")),
+	];
 
 	results = arrayToFilter.filter(
 		(country) =>
@@ -331,6 +315,19 @@ async function filterSearchInput(event = {}, inputCountries = []) {
 			country.capital.toLowerCase().includes(filter)
 	);
 	return results;
+}
+
+async function initializeFiltering(event, inputCountries, type) {
+	let filter, arrayToFilter;
+	if (Object.keys(event).length) {
+		filter = event.target.value;
+		arrayToFilter = inputCountries;
+		filters[type] = filter;
+	} else {
+		filter = filters[type];
+		arrayToFilter = await countriesData;
+	}
+	return [filter, arrayToFilter];
 }
 
 // ******************************* SCROLL EFFECT ******************************* //
